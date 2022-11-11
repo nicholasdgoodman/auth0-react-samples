@@ -44,6 +44,17 @@ To do this, first copy `src/auth_config.json.example` into a new file in the sam
 
 **Note**: Do not specify a value for `audience` here if you do not wish to use the API part of the sample.
 
+### Configure Solace
+
+This project assumes you have a broker configured with the same Auth0 Client ID and other relevant settings. To tell the application which broker and VPN to connect to copy `src/solace_config.json.example` into a new file in the same folder called `src/solace_config.json`, and replace the values with your Solace broker information:
+
+```json
+{
+  "url": "wss://{BROKER_URL}:443",
+  "vpnName": "{VPN_NAME}
+}
+```
+
 ## Run the sample
 
 ### Compile and hot-reload for development

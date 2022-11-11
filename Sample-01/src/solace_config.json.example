@@ -1,0 +1,4 @@
+{
+  "url": "wss://{BROKER_URL}:443}",
+  "vpnName": "{VPN_NAME}"
+}

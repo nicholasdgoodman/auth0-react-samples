@@ -5,7 +5,8 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Auth0Provider } from "@auth0/auth0-react";
 import history from "./utils/history";
-import { getConfig } from "./config";
+import { getAuthConfig, getSolaceConfig } from "./config";
+import { SolaceSessionProvider } from "./providers/solace";
 
 const onRedirectCallback = (appState) => {
   history.push(
@@ -15,19 +16,22 @@ const onRedirectCallback = (appState) => {
 
 // Please see https://auth0.github.io/auth0-react/interfaces/Auth0ProviderOptions.html
 // for a full list of the available properties on the provider
-const config = getConfig();
+const authConfig = getAuthConfig();
+const solaceConfig = getSolaceConfig();
 
 const providerConfig = {
-  domain: config.domain,
-  clientId: config.clientId,
-  ...(config.audience ? { audience: config.audience } : null),
+  domain: authConfig.domain,
+  clientId: authConfig.clientId,
+  ...(authConfig.audience ? { audience: authConfig.audience } : null),
   redirectUri: window.location.origin,
   onRedirectCallback,
 };
 
 ReactDOM.render(
   <Auth0Provider {...providerConfig}>
-    <App />
+    <SolaceSessionProvider {...solaceConfig}>
+      <App />
+    </SolaceSessionProvider>
   </Auth0Provider>,
   document.getElementById("root")
 );
